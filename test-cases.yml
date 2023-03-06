@@ -1,0 +1,370 @@
+---
+- summary: |
+    Проверка авторизации через GitHub
+  requirement: |
+    Пользователь может войти в Codebattle через GitHub
+  prerequisites: |
+    Пользователь зарегестрирован в GitHub, открыта станица авторизации Codebattle
+  test-data: |
+    -
+  steps:
+    - Нажать кнопку Singh in with GitHub
+    - Ввести логин GitHub
+    - Ввести пароль GitHub
+    - Нажимаем кнопку Log in
+  expected-result: |
+    Пользователь авторизован в Codebattle
+- summary: |
+    Проверка авторизации через Discord
+  requirement: |
+    Пользователь может войти в Codebattle через Discord
+  prerequisites: |
+    Пользователь зарегестрирован в Discord, открыта станица авторизации Codebattle
+  test-data: |
+    -
+  steps:
+    - Нажать кнопку Singh in with Discord
+    - Ввести логин Discord
+    - Ввести пароль Discord
+    - Нажимаем кнопку Log in
+  expected-result: |
+    Пользователь авторизован в Codebattle
+    
+- summary: |
+    Возможность перехода в Discord для авторизованных участников
+  requirement: |
+    Пользователь может по ссылке присоединиться к серверу Discord codebattle для голосового чата с соперником
+  prerequisites:
+    Открыта страница логина
+    Успешно авторизованный аккаунт codebattle
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - Нажать на свой профиль в правом верхнем углу
+    - Нажать "Join Discord"
+  expected-result: |
+    Происходит редирект на сайт Discord
+- summary: |
+    Успешная авторизация пользователя с существующими логином и паролем
+  requirement: |
+    При верном вводе логине и пароля пользователь должен войти в Codebattle
+  prerequisites: |
+    Открыта станица авторизации Codebattle, пользователь ранее зарегистрирован
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - Нажать кнопку Singh in
+    - Ввести логин
+    - Ввести пароль
+    - Нажимаем кнопку Log in
+  expected-result: |
+    Пользователь должен попасть на главную страницу
+    
+- summary: |
+    Авторизация несуществующего пользователя
+  requirement: |
+    При вводе логина и пароля несуществующего пользователя должено появиться сообщение об ошибке
+  prerequisites: |
+    Открыта станица авторизации Codebattle
+  test-data: |
+    Логин = noUser@mail.ru Пароль = emptykey
+  steps:
+    - Нажать кнопку Singh in
+    - Ввести логин
+    - Ввести пароль
+    - Нажимаем кнопку Log in
+  expected-result: |
+    Появляется сообщение об ошибке
+    
+- summary: |
+    Успешное создание игры с ботом
+  requirement: |
+    При нажатии Create a game появляется окно с параметрами игры
+  prerequisites: |
+    Открыта главная станица Codebattle, пользователь авторизован
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - Нажать кнопку Create a game
+    - Выбрать Level (значение - 1 звезда)
+    - Выбрать Game type (значение - With a bot)
+    - Выставить Time control (значение - 5 минут)
+    - Выбрать Choose task by name or tags (значение - book_authors)
+    - Нажимаем кнопку Create battle
+  expected-result: |
+    Открывается окно игры с заданными параметрами
+    
+- summary: |
+    Успешное создание игры с другим пользователем
+  requirement: |
+    При нажатии Create a game появляется окно с параметрами игры
+  prerequisites: |
+    Открыта главная станица Codebattle, пользователь авторизован
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - Нажать кнопку Create a game
+    - Выбрать Level (значение - 1 звезда)
+    - Выбрать Game type (значение - With other user)
+    - Выставить Time control (значение - 5 минут)
+    - Выбрать Choose task by name or tags (значение - add_two_number)
+    - Нажимаем кнопку Create battle
+  expected-result: |
+    Игра создается с пользователем-опонентом
+    
+- summary: |
+    Успешное создание игры с другом
+  requirement: |
+    При нажатии Create a game появляется окно с параметрами игры
+  prerequisites: |
+    Открыта главная станица Codebattle, пользователь авторизован
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - Нажать кнопку Create a game
+    - Выбрать Level (значение - 1 звезда)
+    - Выбрать Game type (значение - With a friend)
+    - Выставить Time control (значение - 5 минут)
+    - Выставить Choose opponent (значение - CoderAnn)
+    - Выбрать Choose task by name or tags (значение - add_two_number)
+    - Нажимаем кнопку Create battle
+  expected-result: |
+    Игра создается с пользователем-опонентом
+    
+- summary: |
+    Проверка фильтра LEADERBOARD
+  requirement: |
+    При выборе параметра периода в LEADERBOARD появляется список пользователей, соответствующих запросу
+  prerequisites: |
+    Открыта главная станица Codebattle, пользователь авторизован
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - Нажать WEEK в LEADERBOARD
+    - Нажать MONTH в LEADERBOARD
+    - Нажать ALL в LEADERBOARD
+  expected-result: |
+    Список пользователей меняется в соответствии с фильтром
+    
+- summary: |
+    Проверка фильтров в Users rating
+  requirement: |
+    При выборе параметра меняется список пользователей, соответствующий запросу
+  prerequisites: |
+    Открыта станица https://codebattle.hexlet.io/users, пользователь авторизован
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - Нажать Rating
+    - Нажать Rank
+    - Нажать Games played
+    - Нажать Joined
+    - Проставить флаг Whith bots
+  expected-result: |
+    Рейтинг сортируется по параметру, который был выбран
+ 
+- summary: |
+    Проверка на мультиязычность задач
+  requirement: |
+    При переключении языка в окне баттла переводится задание
+  prerequisites: |
+    Открыта главная страница
+  test-data: |
+    -
+  steps:
+    - Поменять язык с русского на английский
+    - Проверить корректность результата
+    - Поменять язык с английского на русский
+    - Проверить корректность результата
+  expected-result: |
+    При переключении языка переводится задание, верстка сохраняется
+      
+- summary: |
+    Проверка мобильной адаптивности
+  requirement: |
+    При переключении сайта на мобильную версию верстка сохраняется
+  prerequisites: |
+    Открыта главная страница
+  test-data: |
+    -
+  steps:
+    - Открыть DevTools
+    - Выбрать Toggle Device Toolbar
+    - Поменять расширение страницы для разных мобильных устройств
+  expected-result: |
+    Верстка сайта адаптируется под форматы мобильных устройств, функционал сохраняется
+     
+- summary: |
+    Проверка работы сайта при низкой скорости интернета
+  requirement: |
+    При низкой скорости интернета загружается главная страница
+  prerequisites: |
+    Открыта главная страница
+  test-data: |
+    -
+  steps:
+    - Открыть DevTools
+    - Перейти в Network
+    - Поменять скорость на Slow 3G
+    - Обновить страницу сайта
+  expected-result: |
+    Загружается главная страница
+      
+- summary: |
+    Проверка работы сайта при отсутствии подключения к сети интернет
+  requirement: |
+    При отсутствии связи появляется сообщение об отсутствии подключения к сети интернет
+  prerequisites: |
+    Открыта главная страница
+  test-data: |
+    -
+  steps:
+    - Открыть DevTools
+    - Перейти в Network
+    - Поменять скорость на Offline
+    - Обновить страницу сайта
+  expected-result: |
+    Появляется сообщение об отсутствии подключения к сети интернет
+- summary: |
+    Проверка невозможности изменить код соперника
+  requirement: |
+    Нет возможности писать код в окне соперника
+  prerequisites: |
+    Открыта станица активной игры Codebattle
+  test-data: |
+    Логин = User@gmail.com Пароль = password, параменты игры: *, Whith a bot, 5 min, random task
+  steps:
+    - Ввести символы в окне соперника
+  expected-result: |
+    Пользователь не может вводить никакие символы в окне соперника
+    
+- summary: |
+    Проверка уведомления о начале игры
+  requirement: |
+    При подтверждении игры от соперника, пользователь получает уведомление о начале игры
+  prerequisites: |
+    Открыта станица Lobby
+  test-data: |
+    Логин = User@gmail.com Пароль = password, параменты игры: *, Whith other user (tirion), 5 min, random task
+  steps:
+    - Создать игру по параметрам
+    - Получить подтверждение от соперника
+  expected-result: |
+    При подтверждении от соперника, игра становится активной
+    
+- summary: |
+    Проверка просмотра истории батлов
+  requirement: |
+    При переходе во вкладку COMPLETED GAMES отображается история батлов от последней завершенной игры
+  prerequisites: |
+    Открыта главная станица Codebattle, пользователь авторизован
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - Перейти во складку COMPLETED GAMES
+  expected-result: |
+    Отображается история баттлов
+    
+- summary: |
+    Проверка просмотра повтора батла
+  requirement: |
+    При нажатии SHOW в списке истории батлов открывается окно с возможностью воспроизведения игры
+  prerequisites: |
+    Открыта главная станица Codebattle, пользователь авторизован
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - Перейти во складку COMPLETED GAMES
+    - Нажать на SHOW у последнего батла
+    - Нажать PLAY
+  expected-result: |
+    Воспроизводится повтор батла
+    
+- summary: |
+    Проверка выбора языка программирования
+  requirement: |
+    Во время игры есть возможность выбрать язык программирования
+  prerequisites: |
+    Пользователь авторизован, открыт терминал баттла 
+  test-data: |
+    Логин = User@gmail.com Пароль = password; Level-*; Game type - With a bot, Time control - 3 min, Choose a task - random
+  steps:
+    - Переключитьязык на Java 18
+    - Переключитьязык на C++ 20
+    - Переключитьязык на Python 3.10.6
+  expected-result: |
+    Терминал меняется согласно выбранному языку
+    
+- summary: |
+    Проверка установки таймера, регулирующего ход
+  requirement: |
+    В кастомизации баттла есть возможность установки таймера ходов для соперников
+  prerequisites: |
+    Пользователь авторизован, открыт терминал баттла 
+  test-data: |
+    Логин = User@gmail.com Пароль = password; Level-*; Game type - With a bot, Time control - 3 min, Choose a task - random
+  steps:
+    - выставить таймер на 20 секунд
+  expected-result: |
+    Ход автоматически перейдет к сопернику через 20 секунд
+    
+- summary: |
+    Проверка успешного создания турнира
+  requirement: |
+    Есть возможность создания и кастомизации турниров
+  prerequisites: |
+    Пользователь авторизован, открыта страница https://codebattle.hexlet.io/tournaments
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - выбрать Name (значение - test)
+    - выбрать Type (значение - Individual)
+    - выбрать Access type (значение - public)
+    - выбрать Starts at (значение - дата и время проверки)
+    - выбрать Level (значение - Elementary)
+    - выбрать Default Language (значение - python)
+    - выбрать Match timeout in seconds (значение - 180)
+  expected-result: |
+    Турнир успешно создан
+    
+- summary: |
+    Успешное переподключение участника к батлу
+  requirement: |
+    Пользователь может вернуться и продолжить баттл, если он участник
+  prerequisites: |
+    Пользователь авторизован, открыт терминал баттла
+  test-data: |
+    Логин = User@gmail.com Пароль = password; Level-**; Game type - With a bot, Time control - 1 min, Choose a task - random
+  steps:
+    - Нажать Back to home
+    - На странице Lobby нажать Continue
+  expected-result: |
+    Открывается терминал баттла, пользователь может продолжать игру
+    
+- summary: |
+    Проверка возможности дописать код по окончании баттла
+  requirement: |
+    После проверки кода соперника, пользователь может дописать свой код
+  prerequisites: |
+    Пользователь авторизован, открыт терминал баттла
+  test-data: |
+    Логин = User@gmail.com Пароль = password; Level-**; Game type - With a bot, Time control - 1 min, Choose a task - random
+  steps:
+    - Дождаться окончания баттла
+    - Дописать код в терминале баттла
+  expected-result: |
+    Пользователь может дописать код в терминале
+    
+- summary: |
+    Проверка возможности просмотра баттла в режиме online
+  requirement: |
+    Есть возможность просмотра активного баттла в режиме online
+  prerequisites: |
+    Пользователь авторизован, открыта страница Lobby
+  test-data: |
+    Логин = User@gmail.com Пароль = password
+  steps:
+    - Найти активный баттл с 2мя участниками
+    - Нажать Show
+  expected-result: |
+    Пользователь видит ходы соперников в режиме online
